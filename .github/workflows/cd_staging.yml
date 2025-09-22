@@ -15,7 +15,7 @@ jobs:
                 chmod 400 ~/ssh_key
                 ssh -i ~/ssh_key -o StrictHostKeyChecking=no ubuntu@13.234.33.232 << 'EOF'
                     export PATH=$HOME/.npm-global/bin:$PATH 
-                    cd ~/ci-app/ && git pull
+                    cd ci-app/ && git pull
                     npm i -g pnpm
                     pnpm install
                     pnpm build
