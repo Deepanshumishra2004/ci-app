@@ -6,11 +6,11 @@ on:
 
 jobs:
     redeploy_everything:
+        runs_on: ubuntu-latest
         name: Deploying the frontend to staging cluster
-        
         steps:
-            - name: SSH Into server
-            - run: |
+            name: SSH Into server
+            run: |
                 echo ${{ secrets.SSH_PRIVATE_KEY }} &> ~/ssh_key
                 ssh -i ~/ssh_key ubuntu@13.234.33.232
                 cd ci-app/ && git pull
