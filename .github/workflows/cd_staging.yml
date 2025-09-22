@@ -1,0 +1,21 @@
+name: Deploy to staging
+on:
+    push:
+        branches:
+            - "main"
+
+jobs:
+    redeploy_everything:
+        name: Deploying the frontend to staging cluster
+        
+        steps:
+            - name: SSH Into server
+            - run: |
+                echo ${{ secrets.SSH_PRIVATE_KEY }} &> ~/ssh_key
+                ssh -i ~/ssh_key ubuntu@13.234.33.232
+                cd ci-app/ && git pull
+                pnpm install
+                pnpm build
+                pm2 restart frontend
+                pm2 restart http
+                pm2 restart ws
