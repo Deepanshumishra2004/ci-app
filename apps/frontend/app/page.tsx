@@ -12,7 +12,7 @@ export default async function Home() {
       {user?.username}
       password :
       {user?.password}
-      never callasdasdasda
+      cobra
     </div>
   );
 }
