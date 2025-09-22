@@ -12,7 +12,8 @@ jobs:
             - name: SSH Into server
               run: |
                 echo "${{ secrets.SSH_PRIVATE_KEY }}" &> ~/ssh_key
-                ssh -i ~/ssh_key ubuntu@13.234.33.232
+                chmod 400 ~/ssh_key
+                ssh -i ~/ssh_key -o StrictHostKeyChecking=no ubuntu@13.234.33.232
                 cd ci-app/ && git pull
                 pnpm install
                 pnpm build
