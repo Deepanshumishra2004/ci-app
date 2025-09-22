@@ -13,13 +13,12 @@ jobs:
               run: |
                 echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/ssh_key
                 chmod 400 ~/ssh_key
-                ssh -i ~/ssh_key -o StrictHostKeyChecking=no ubuntu@13.234.33.232 << 'EOF'
-                    export PATH=$HOME/.npm-global/bin:$PATH 
-                    cd ci-app/ && git pull
-                    npm i -g pnpm
-                    pnpm install
-                    pnpm build
-                    pm2 restart frontend
-                    pm2 restart http
-                    pm2 restart ws
-                EOF
+                ssh -i ~/ssh_key -o StrictHostKeyChecking=no ubuntu@13.234.33.232 -t "
+                    cd ci-app/ && git pull origin main &&
+                    export PATH=/home/ubuntu/.nvm/versions/node/v22.19.0/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin &&
+                    npm i -g pnpm &&
+                    pnpm install &&
+                    pnpm build &&
+                    pm2 restart frontend &&
+                    pm2 restart http &&
+                    pm2 restart ws"
